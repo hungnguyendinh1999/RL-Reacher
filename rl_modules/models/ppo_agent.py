@@ -119,10 +119,10 @@ class PPOAgent:
                 phi_prev = phi_next
             # --------------------------------
 
-            # ----- DEBUG (remove after testing) ------------------------
-            if global_step < 50: # only first 50 steps overall
-                print(f"step {global_step:3d}   raw {reward: .3f}   shaped {shaped_reward: .3f}")
-            # -----------------------------------------------------------
+            # # ----- DEBUG (remove after testing) ------------------------
+            # if global_step < 50: # only first 50 steps overall
+            #     print(f"step {global_step:3d}   raw {reward: .3f}   shaped {shaped_reward: .3f}")
+            # # -----------------------------------------------------------
 
 
             # Add to transition buffers

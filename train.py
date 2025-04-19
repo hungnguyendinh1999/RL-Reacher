@@ -22,7 +22,6 @@ import os
 import json
 import math
 import time
-import torch
 
 # ----------------------------------------------------------------------
 # CLI parsing
@@ -72,9 +71,7 @@ def train_project(args):
     with open(os.path.join(run_dir, "config.json"), "w") as f:
         json.dump(vars(args), f, indent=2)
 
-    # ------------------------------------------------------------------
-    # kick off training
-    # ------------------------------------------------------------------
+    # start training
     train(
         agent=agent,
         total_iters=total_iters,
@@ -88,7 +85,6 @@ def train_project(args):
 
 # ----------------------------------------------------------------------
 # main entry
-# ----------------------------------------------------------------------
 def main():
     args = parse_args()
 

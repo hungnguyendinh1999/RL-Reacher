@@ -19,7 +19,7 @@ for run_dir in glob.glob("data/*/"):
     label = os.path.basename(run_dir.rstrip("/"))
     plt.plot(ep_rets, label=label, alpha=0.8)
 
-plt.title("Reacher‑v5  |  Episode return vs. PPO iteration")
+plt.title("Reacher-v5 | Episode return vs. PPO iteration")
 plt.xlabel("PPO iteration")
 plt.ylabel("Episode return")
 plt.legend()

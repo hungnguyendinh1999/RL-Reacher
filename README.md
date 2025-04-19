@@ -7,16 +7,16 @@
 ---
 
 ## 🚀 Project Overview
-This repo investigates **how different reward‑shaping strategies influence learning speed and final performance** of a PPO agent controlling the 2‑DoF **Reacher‑v5** robotic arm (Gymnasium).  
+This repo investigates how different **reward‑shaping strategies** influence learning speed and final performance of a PPO agent controlling the 2‑DoF **Reacher‑v5** robotic arm ([Gymnasium](https://gymnasium.farama.org/environments/mujoco/reacher/)).  
 We compare:
 
-| Label | Strategy | ϕ‑function (potential) | Notes |
+| Label | Strategy | $\phi$‑function (potential) | Notes |
 |-------|----------|------------------------|-------|
 | **B‑0** | Baseline | — | raw env reward |
-| **Δ‑1** | PBRS‑L2 | \(-‖\text{tip}−\text{target}‖\) |
-| **Δ‑2** | PBRS‑L2² | \(-‖\text{tip}−\text{target}‖^{2}\) |
-| **Δ‑3** | PBRS‑Decay | Δ‑1 × α(t) (linear decay → 0) |
-| *(opt.)* | Reward‑Scale | \(k·r\) | ablation |
+| **$\Delta‑1$** | PBRS‑L2 | $-‖\text{tip}−\text{target}‖$ |
+| **$\Delta‑2$** | PBRS‑L2² | $-‖\text{tip}−\text{target}‖^{2}$ |
+| **$\Delta‑3$** | PBRS‑Decay | $\Delta‑1 × \alpha(t)$ (linear decay $\rightarrow$ 0) |
+| *(todo.)* | Reward‑Scale | $k \cdot r$ | ablation |
 
 ---
 
@@ -64,10 +64,8 @@ conda activate rl_env
 
 # 2. Install dependencies
 pip install -r requirements.txt
-#  gymnasium[box2d] for Reacher‑v5, torch, wandb, imageio, etc.
+#  gymnasium[mujoco] for Reacher‑v5, torch, imageio, etc.
 ```
-
-> **Colab**: open `colab_train.ipynb`, pip‑install the same `requirements.txt`, then `!python scripts/train.py --variant l2`.
 
 ---
 
@@ -75,17 +73,17 @@ pip install -r requirements.txt
 
 ### 1. Baseline PPO
 ```bash
-python scripts/train.py --variant none --timesteps 100000 --run_name baseline
+python train.py --variant none --timesteps 100000 --run_name baseline
 ```
 
 ### 2. Potential‑based L2 shaping
 ```bash
-python scripts/train.py --variant l2 --timesteps 100000 --run_name pbrs_l2
+python train.py --variant l2 --timesteps 100000 --run_name pbrs_l2
 ```
 
 ### 3. Rollout a trained model
 ```bash
-python scripts/run_rollout.py
+python run_rollout.py
 ```
 Creates `rollout.gif` and `rollout.npz`.
 
@@ -96,7 +94,7 @@ Creates `rollout.gif` and `rollout.npz`.
 |------|---------|-------------|
 | `--variant` | `none` | `none`, `l2`, `l2sq`, `decay`, `scale` |
 | `--timesteps` | `500000` | total env steps |
-| `--decay_steps` | `300k` | when α(t)=0 (for `decay`) |
+| `--decay_steps` | `300k` | when $\alpha(t)=0$ (for `decay`) |
 | `--scale_k` | `2.0` | reward multiplier (`scale`) |
 | `--run_name` | auto | sub‑folder in `data/` |
 

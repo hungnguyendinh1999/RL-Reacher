@@ -1,13 +1,19 @@
-#!/usr/bin/env python3
 """
 Evaluate every run folder under data/ and save results.csv
 Columns: run_name, variant, seed, mean_return, success_rate
-Success = final distance < 0.02 m.
+Success = final distance < 0.02 m
 """
-import os, json, glob, re
-import numpy as np, pandas as pd, torch
-from rl_project.models.networks import ActorCritic
-from rl_project.core.envs import make_reacher_env
+import os
+import json
+import glob
+import re
+
+import numpy as np
+import pandas as pd
+import torch
+
+from rl_modules.models.networks import ActorCritic
+from rl_modules.core.utils import make_reacher_env
 
 # ------------------------------------------------------------
 def eval_agent(model_path, n_ep=10):

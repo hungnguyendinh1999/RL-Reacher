@@ -5,8 +5,8 @@ import numpy as np
 import gymnasium as gym
 from stable_baselines3.common.monitor import Monitor
 
-def make_reacher_env(render_mode=None):
-    env = gym.make("Reacher-v5", render_mode=render_mode)
+def make_reacher_env(render_mode=None, max_episode_steps=50):
+    env = gym.make("Reacher-v5", render_mode=render_mode, max_episode_steps=max_episode_steps)
     env = Monitor(env)  # Tracks episode rewards and lengths
     env.reset()
     return env

@@ -3,10 +3,10 @@ import numpy as np
 from rl_modules.models.networks import ActorCritic
 from rl_modules.core.utils import make_reacher_env
 
-def run_rollout(model_path="ppo_model.pt", render=False, record=False, save_path="rollout.npz"):
+def run_rollout(model_path="ppo_model.pt", max_episode_steps=300, render=False, record=False, save_path="rollout.npz"):
     # Set up environment
     render_mode = "rgb_array" if record else "human" if render else None
-    env = make_reacher_env(render_mode=render_mode)
+    env = make_reacher_env(render_mode=render_mode, max_episode_steps=max_episode_steps)
     obs_dim = env.observation_space.shape[0]
     act_dim = env.action_space.shape[0]
 
@@ -48,4 +48,4 @@ def run_rollout(model_path="ppo_model.pt", render=False, record=False, save_path
     env.close()
 
 if __name__ == "__main__":
-    run_rollout(model_path="ppo_model_10K.pt", render=True, record=False)
+    run_rollout(model_path="ppo_model_10K.pt", max_episode_steps=300, render=True, record=False)
