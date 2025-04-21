@@ -96,17 +96,18 @@ def train(
     env = make_reacher_env()
     episode_returns, global_step = [], 0
     running_ep_ret = 0.0
+    mean_log = []
 
-    for it in range(total_iters):
-        (obs_buf, act_buf, logp_buf, 
-         adv_buf, ret_buf, 
-         rew_buf, done_buf, 
+    for it in tqdm(range(total_iters), desc=f"{variant}"):
+        (obs_buf, act_buf, logp_buf,
+         adv_buf, ret_buf,
+         rew_buf, done_buf,
          global_step) = agent.rollout(
             env, max_steps = rollout_len, variant = variant,
             decay_steps = decay_steps, global_step = global_step, scale_k = scale_k
         )
         # track per‑episode returns
-        for r, d in zip(rew_buf, done_buf):  # you may need to store done flags in agent
+        for r, d in zip(rew_buf, done_buf):
             running_ep_ret += r.item()
             if d.item() == 1.0:
                 episode_returns.append(running_ep_ret)
@@ -118,11 +119,13 @@ def train(
         # log mean of completed "episodes" (well, this isn't episodic, but it's truncated at 50 steps)
         if episode_returns:
             mean_ep = float(np.mean(episode_returns[-min(10, len(episode_returns)):]))
-            print(f"[{variant}|iter {it+1}/{total_iters}] mean ep-return {mean_ep:.2f}")
+            mean_log.append(mean_ep)
+    
+    print(f"[{variant}| {total_iters} iters] last mean ep-return {mean_log[-1]:.2f}")
 
 
     torch.save(agent.model.state_dict(), save_path)
     with open(stats_path, 'w') as f:
-        json.dump({"episode_returns": episode_returns}, f, indent=2)
+        json.dump({"episode_returns": episode_returns, "mean_returns": mean_log}, f, indent=2)
 
     env.close()

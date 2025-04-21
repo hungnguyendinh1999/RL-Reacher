@@ -6,5 +6,5 @@ python train.py --variant l2    --timesteps 100000 --run_name pilot_l2
 python train.py --variant l2sq  --timesteps 100000 --run_name pilot_l2sq
 python train.py --variant decay --timesteps 100000 --decay_steps 300000 --run_name pilot_decay
 
-# Plot mean‑episode‑return curves for every run
-python plot_training.py
+# Generate results_*.csv
+python eval_returns.py

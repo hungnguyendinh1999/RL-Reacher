@@ -6,7 +6,7 @@ from rl_modules.core.utils import compute_gae
 from rl_modules.core.potential_functions import POTENTIALS
 
 class PPOAgent:
-    def __init__(self, obs_dim, act_dim, lr=3e-4, clip_eps=0.2):
+    def __init__(self, obs_dim, act_dim, lr=1e-3, clip_eps=0.2): # TODO: change LR to 3e-4
         self.model = ActorCritic(obs_dim, act_dim)
         self.optimizer = Adam(self.model.parameters(), lr=lr)
         self.clip_eps = clip_eps
@@ -47,7 +47,7 @@ class PPOAgent:
 
                 # value loss
                 with torch.no_grad():
-                    val_old = val.detach()          # V_old(s)
+                    val_old = val.detach()
                 val_clipped = val_old + torch.clamp(val - val_old, -0.2, 0.2)
                 value_loss = F.mse_loss(val_clipped.squeeze(), ret)
 
@@ -86,7 +86,7 @@ class PPOAgent:
         """
         # -- choose phi(s) --
         is_using_phi = variant in ("l2", "l2sq", "decay")
-        phi_key   = "l2" if variant == "decay" else variant  # decay uses L2 shape
+        phi_key = "l2sq" if variant == "decay" else variant  # decay uses L2 shape
         # ----------
 
         obs_buf, act_buf, logp_buf, rew_buf, done_buf, val_buf = [], [], [], [], [], []

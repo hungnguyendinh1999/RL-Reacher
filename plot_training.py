@@ -1,5 +1,5 @@
 """
-Plot mean‑episode‑return curves for every run.
+Plot mean-episode-return curves for every run.
 Assumes each train_log.json has {"episode_returns": [...]}.
 """
 import os

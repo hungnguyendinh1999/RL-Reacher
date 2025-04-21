@@ -48,4 +48,5 @@ def run_rollout(model_path="ppo_model.pt", max_episode_steps=300, render=False, 
     env.close()
 
 if __name__ == "__main__":
-    run_rollout(model_path="ppo_model_10K.pt", max_episode_steps=300, render=True, record=False)
+    # run_rollout(model_path="data/none_seed0/ppo_model.pt", max_episode_steps=300, render=True, record=False)
+    run_rollout(model_path="data/pilot_l2sq/ppo_model.pt", max_episode_steps=50, render=True, record=False)
