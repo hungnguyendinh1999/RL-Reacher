@@ -1,12 +1,26 @@
+"""
+Generate a rollout GIF, or visualize on a new window. Please make appropriate modifications before running.
+"""
+
 import torch
 import numpy as np
+import glob
+import os
 from rl_modules.models.networks import ActorCritic
 from rl_modules.core.utils import make_reacher_env
 
-def run_rollout(model_path="ppo_model.pt", max_episode_steps=300, render=False, record=False, save_path="rollout.npz"):
+
+def run_rollout(model_path="ppo_model.pt", max_episode_steps=50, render=False, record=False, 
+                save_gif_path = "rollout.gif", save_traj_path=None):
+    """
+    Run rollout and generate a new window, rendering the rollout, or generate a rollout.npz file
+    `record` and `render` have a hierachical relationship, where
+        `record = True` is prioritized. Otherwise, we consider `render=True` to renders in "human" mode
+    """
     # Set up environment
     render_mode = "rgb_array" if record else "human" if render else None
     env = make_reacher_env(render_mode=render_mode, max_episode_steps=max_episode_steps)
+    env.metadata["render_fps"] = 30
     obs_dim = env.observation_space.shape[0]
     act_dim = env.action_space.shape[0]
 
@@ -38,15 +52,24 @@ def run_rollout(model_path="ppo_model.pt", max_episode_steps=300, render=False, 
 
     if record:
         import imageio
-        imageio.mimsave("rollout.gif", frames, fps=30)
-        print("Saved rollout.gif")
+        imageio.mimsave(save_gif_path, frames, fps=30)
+        print(f"Saved {save_gif_path}")
 
     # Optionally save trajectory
-    # np.savez(save_path, trajectory=traj)
-    # print(f"Saved rollout trajectory to {save_path}")
+    if save_traj_path:
+        np.savez(save_traj_path, trajectory=traj)
+        print(f"Saved rollout trajectory to {save_traj_path}")
 
     env.close()
 
 if __name__ == "__main__":
-    # run_rollout(model_path="data/none_seed0/ppo_model.pt", max_episode_steps=300, render=True, record=False)
-    run_rollout(model_path="data/pilot_l2sq/ppo_model.pt", max_episode_steps=50, render=True, record=False)
+    for run_dir in glob.glob("data/*/"):
+        model_path = os.path.join(run_dir, "ppo_model.pt")
+        if not os.path.isfile(model_path):
+            continue
+        run_id = run_dir.split("/")[2]
+        run_rollout(
+            model_path=model_path,
+            render=True,
+            # record=True, save_gif_path=f"{run_id}.gif"
+            )

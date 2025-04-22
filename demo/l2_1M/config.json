@@ -1,0 +1,8 @@
+{
+  "variant": "l2",
+  "timesteps": 1000000,
+  "rollout_len": 2048,
+  "decay_steps": 300000,
+  "scale_k": 2.0,
+  "run_name": "l2_1M"
+}

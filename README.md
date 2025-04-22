@@ -6,6 +6,21 @@
 
 ---
 
+## DEMO (only for CS 7150 Deep Learning course)
+This directory has 5 models, each in their own directory, that are readable called `ppo_model.pt`. From **the top** directory, run this command to run each model on an episode of Reacher-v5:
+
+```bash
+python demo_run_rollout.py
+```
+
+If you want to save the GIFs, pass an argument to it with the corresponding flag:
+
+```bash
+python demo_run_rollout.py --mode record
+```
+
+For graphs, please visit [`plot_results.ipynb`](../plot_results.ipynb) in the top directory.
+
 ## 🚀 Project Overview
 This repo investigates how different **reward‑shaping strategies** influence learning speed and final performance of a PPO agent controlling the 2‑DoF **Reacher‑v5** robotic arm ([Gymnasium](https://gymnasium.farama.org/environments/mujoco/reacher/)).  
 We compare:

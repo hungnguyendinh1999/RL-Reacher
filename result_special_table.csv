@@ -1,0 +1,7 @@
+run,variant_base,num_episodes,alpha,success_rate,mean_return
+decay300000_1M_l2sq_a_5,decay300K,1M,0.5,0.207,-276.29
+decay200000_500K_l2sq_a_5,decay200K,500K,0.5,0.187,-232.65
+decay300000_500K_l2sq_a_5,decay300K,500K,0.5,0.158,-347.05
+decay500000_1M_l2sq_a_5,decay500K,1M,0.5,0.132,-424.73
+decay500000_500K_l2sq_a_5,decay500K,500K,0.5,0.123,-1111.2
+decay200000_1M_l2sq_a_5,decay200K,1M,0.5,0.113,-662.76

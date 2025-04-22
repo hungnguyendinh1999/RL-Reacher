@@ -1,0 +1,8 @@
+{
+  "variant": "none",
+  "timesteps": 10000,
+  "rollout_len": 50,
+  "decay_steps": 300000,
+  "scale_k": 2.0,
+  "run_name": "smoke_none"
+}

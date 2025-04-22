@@ -1,13 +1,13 @@
 # ---------------------------------------------------------
-# launch full 500 k‑step experiments
+# launch full 500 k‑step or 1M-step experiments
 # ---------------------------------------------------------
 set -e          # exit on first error
-TIMESTEPS=1000000
-ROLLOUT=2048
-LABEL=1M
+TIMESTEPS=1500
+ROLLOUT=50
+LABEL=50_1500
 # ---- loops ------------------------------------------------
 
-  baseline
+#   baseline
   python train.py \
       --variant none \
       --timesteps $TIMESTEPS \
@@ -29,13 +29,13 @@ LABEL=1M
       --run_name l2sq_${LABEL}
 
 
-  # Decay shaping with three horizons
-for DECAY in 200000 300000 500000; do
-    python train.py \
-            --variant decay \
-            --timesteps $TIMESTEPS \
-            --rollout_len $ROLLOUT \
-            --decay_steps $DECAY \
-            --run_name decay${DECAY}_${LABEL}
-done
+#   # Decay shaping with three horizons
+# for DECAY in 200000 300000 500000; do
+#     python train.py \
+#             --variant decay \
+#             --timesteps $TIMESTEPS \
+#             --rollout_len $ROLLOUT \
+#             --decay_steps $DECAY \
+#             --run_name decay${DECAY}_${LABEL}
+# done
 

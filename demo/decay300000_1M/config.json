@@ -1,0 +1,8 @@
+{
+  "variant": "decay",
+  "timesteps": 1000000,
+  "rollout_len": 2048,
+  "decay_steps": 300000,
+  "scale_k": 2.0,
+  "run_name": "decay300000_1M"
+}
