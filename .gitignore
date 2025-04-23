@@ -1,2 +1,5 @@
 data/**
 **/__pycache__/
+results_alpha_5.csv
+results_archive.csv
+rollout_best.gif
